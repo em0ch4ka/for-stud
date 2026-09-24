@@ -1,20 +1,20 @@
 Нұсқа 3
 
-class Appliance(self,brand,power):
+class Appliance():
 	def ___init___(self,brand,power)
 	   self._brand = brand
 	   self._power = power
 	
 	
 	def brand(self):
-	reterun self._brand
+	return self._brand
 	
 	
 	def brand(self, value):
 	self._brand = value
 	
 	def power(self):
-	reterun (self._power)
+	return (self._power)
 	
 	def power(self,value):
 	   if value > 0:
