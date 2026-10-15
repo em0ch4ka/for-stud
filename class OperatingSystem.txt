@@ -1,0 +1,21 @@
+class OperatingSystem:
+
+  def __init__(self, name: str):
+    self.name = name
+  def start(self):
+    print(f"{self.name} операциялық жүйесі іске қосылуда...")
+
+
+class Computer:
+
+  def __init__(self, os_name: str):
+    self.os = OperatingSystem(os_name)
+
+  def run_program(self):
+    print("Компьютер іске қосылды.")
+    self.os.start()
+    print("Бағдарлама сәтті іске қосылды!")
+
+
+comp = Computer("Windows 11")
+comp.run_program()
