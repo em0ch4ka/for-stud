@@ -1,0 +1,45 @@
+class Player:
+
+  def __init__(self, health: int, level: int):
+    self.__health = health  # Жеке (private) өріс
+    self._level = level  # Қорғалған (protected) өріс
+
+  def display_info(self):
+    print(f"Денсаулық: {self.__health}, Деңгей: {self._level}")
+
+
+class Wizard(Player):
+
+  def attack(self):
+    print("Wizard сиқырлы шабуыл жасады!")
+
+  def calculate_power(self) -> float:
+    return self._level * 10
+
+
+class Warrior(Player):
+
+  def attack(self):
+    print("Warrior кәсіби соққы берді!")
+
+  def calculate_power(self) -> float:
+    return self._level * 15
+
+
+class Hero(Wizard, Warrior):
+
+  def calculate_power(self) -> float:
+    wizard_power = super().calculate_power() * 5
+    warrior_power = Warrior.calculate_power(self) / 2
+    return wizard_power + warrior_power
+
+  def use_warrior_attack(self):
+    Warrior.attack(self)
+
+
+hero = Hero(health=100, level=4)
+
+hero.display_info()
+print(f"Hero жалпы күші: {hero.calculate_power()}")
+
+hero.use_warrior_attack()
