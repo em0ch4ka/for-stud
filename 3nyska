@@ -1,0 +1,28 @@
+1-тапсырма
+class Student:
+    def __init__(self, name, student_id):
+        self.name = name
+        self.student_id = student_id
+
+    def start(self):
+        print(f"Студенттің аты: {self.name}, ID нөмірі: {self.student_id}")
+
+
+class University:
+    def __init__(self, student):
+        self.student = student
+
+    def show_student(self):
+        self.student.start()
+
+
+student1 = Student("Rasul", 12345)
+university1 = University(student1)
+
+university1.show_student()
+
+Нәтиже:
+Студенттің аты: Rasul, ID нөмірі: 12345
+
+2-тапсырма
+
