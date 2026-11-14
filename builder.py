@@ -12,9 +12,9 @@ class Car:
 
     def __str__(self) -> str:
         return (
-            f"Автомобиль: {self.seats} мест, двигатель {self.engine}, "
-            f"бортовой компьютер: {'есть' if self.trip_computer else 'нет'}, "
-            f"GPS: {'есть' if self.gps else 'нет'}"
+            f"Автокөлік: {self.seats} орын, қозғалтқыш {self.engine}, "
+            f"бортты компьютер: {'бар' if self.trip_computer else 'жоқ'}, "
+            f"GPS: {'бар' if self.gps else 'жоқ'}"
         )
 
 @dataclass
@@ -22,7 +22,7 @@ class Manual:
     pages: list[str] = field(default_factory=list)
 
     def __str__(self) -> str:
-        return "Руководство:\n" + "\n".join(f"  - {p}" for p in self.pages)
+        return "Нұсқаулық:\n" + "\n".join(f"  - {p}" for p in self.pages)
     
 class Builder(ABC):
     @abstractmethod
@@ -71,18 +71,18 @@ class CarManualBuilder(Builder):
         self._manual = Manual()
 
     def set_seats(self, seats: int) -> None:
-        self._manual.pages.append(f"Количество мест: {seats}")
+        self._manual.pages.append(f"Орын саны: {seats}")
 
     def set_engine(self, engine: str) -> None:
-        self._manual.pages.append(f"Двигатель: {engine}")
+        self._manual.pages.append(f"Қозғалтқыш: {engine}")
 
     def set_trip_computer(self, enabled: bool) -> None:
         if enabled:
-            self._manual.pages.append("Как пользоваться бортовым компьютером")
+            self._manual.pages.append("Бортты компьютерді қалай пайдалану керек")
 
     def set_gps(self, enabled: bool) -> None:
         if enabled:
-            self._manual.pages.append("Как пользоваться GPS-навигацией")
+            self._manual.pages.append("GPS-навигацияны қалай пайдалану керек")
 
     def get_result(self) -> Manual:
         manual, self._manual = self._manual, Manual()
@@ -92,14 +92,14 @@ class Director:
     def construct_sports_car(self, builder: Builder) -> None:
         builder.reset()
         builder.set_seats(2)
-        builder.set_engine("спортивный V8")
+        builder.set_engine("спорттық V8")
         builder.set_trip_computer(True)
         builder.set_gps(True)
 
     def construct_city_car(self, builder: Builder) -> None:
         builder.reset()
         builder.set_seats(4)
-        builder.set_engine("экономичный 1.2")
+        builder.set_engine("үнемді 1.2")
         builder.set_trip_computer(False)
         builder.set_gps(True)
 

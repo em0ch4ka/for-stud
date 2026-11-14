@@ -7,19 +7,20 @@ class Transport(ABC):
 
 class Truck(Transport):
     def deliver(self, cargo: str) -> str:
-        return f"Грузовик везёт «{cargo}» по суше"
+        return f"Жүк көлігі «{cargo}» жүгін құрлықпен жеткізеді"
 
 class Ship(Transport):
     def deliver(self, cargo: str) -> str:
-        return f"Судно везёт «{cargo}» по морю"
+        return f"Кеме «{cargo}» жүгін теңізбен жеткізеді"
 
 class Plane(Transport):
     def deliver(self, cargo: str) -> str:
-        return f"Самолёт везёт «{cargo}» по воздуху"
+        return f"Ұшақ «{cargo}» жүгін әуе арқылы жеткізеді"
 
 class Logistics(ABC):
     @abstractmethod
     def create_transport(self) -> Transport:
+        ...
 
     def plan_delivery(self, cargo: str) -> str:
         transport = self.create_transport()
@@ -42,6 +43,6 @@ def client_code(logistics: Logistics, cargo: str) -> None:
     print(logistics.plan_delivery(cargo))
 
 if __name__ == "__main__":
-    client_code(RoadLogistics(), "мебель")
-    client_code(SeaLogistics(), "контейнеры")
-    client_code(AirLogistics(), "медикаменты")
+    client_code(RoadLogistics(), "жиһаз")
+    client_code(SeaLogistics(), "контейнерлер")
+    client_code(AirLogistics(), "дәрі-дәрмектер")
