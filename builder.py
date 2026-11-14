@@ -1,11 +1,7 @@
-"""Паттерн «Строитель»: сборка автомобиля и руководства к нему."""
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-
-
-# ---------- Продукты (общего интерфейса у них нет) ----------
 
 @dataclass
 class Car:
@@ -21,17 +17,13 @@ class Car:
             f"GPS: {'есть' if self.gps else 'нет'}"
         )
 
-
 @dataclass
 class Manual:
     pages: list[str] = field(default_factory=list)
 
     def __str__(self) -> str:
         return "Руководство:\n" + "\n".join(f"  - {p}" for p in self.pages)
-
-
-# ---------- Интерфейс строителя ----------
-
+    
 class Builder(ABC):
     @abstractmethod
     def reset(self) -> None: ...
@@ -47,9 +39,6 @@ class Builder(ABC):
 
     @abstractmethod
     def set_gps(self, enabled: bool) -> None: ...
-
-
-# ---------- Конкретные строители ----------
 
 class CarBuilder(Builder):
     def __init__(self) -> None:
@@ -71,10 +60,8 @@ class CarBuilder(Builder):
         self._car.gps = enabled
 
     def get_result(self) -> Car:
-        # Отдаём готовый продукт и начинаем новую сборку.
         car, self._car = self._car, Car()
         return car
-
 
 class CarManualBuilder(Builder):
     def __init__(self) -> None:
@@ -101,16 +88,7 @@ class CarManualBuilder(Builder):
         manual, self._manual = self._manual, Manual()
         return manual
 
-
-# ---------- Директор ----------
-
 class Director:
-    """Знает порядок шагов для типовых конфигураций.
-
-    Работает только с интерфейсом Builder, поэтому не знает,
-    что именно получится: автомобиль или руководство.
-    """
-
     def construct_sports_car(self, builder: Builder) -> None:
         builder.reset()
         builder.set_seats(2)
@@ -125,13 +103,9 @@ class Director:
         builder.set_trip_computer(False)
         builder.set_gps(True)
 
-
-# ---------- Клиентский код ----------
-
 if __name__ == "__main__":
     director = Director()
 
-    # Один и тот же процесс, два разных строителя, два разных продукта.
     car_builder = CarBuilder()
     director.construct_sports_car(car_builder)
     print(car_builder.get_result())
@@ -142,8 +116,6 @@ if __name__ == "__main__":
 
     print()
 
-    # Без директора: строитель вызывается напрямую,
-    # нужны только те шаги, которые требуются.
     car_builder.set_seats(5)
     car_builder.set_engine("гибрид")
     print(car_builder.get_result())
